@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>	</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		.sphere {
+			
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			border-radius: 100px;
+			transition: all 0.2s ease-out;
+			top: -150px;
+			background-size:100% 100%;
+            background-repeat: no-repeat;
+		}
+		.sphere_active {
+			display: none;
+		}
+		.ground {
+			background: green;
+			position: absolute;
+			width: 1200px;
+			height: 50px;
+			top:  900px;
+		}
+		.lose1{
+			margin-left: 1630px;
+			height: 100px;
+			width: 300px;
+			background: gray;
+			display: flex;
+			position: absolute;
+		}
+		.lose2{
+			height: 100px;
+			width: 100px;;
+			background-image: url(lose1.png);
+			background-size: 100% 100%;
+		}
+		@font-face {
+    		font-family: ft; /* Гарнитура шрифта */
+    		src: url(go3v2.ttf); /* Путь к файлу со шрифтом */
+   		}
+   		.gameOver{
+   			font-size: 250px;
+   			position: absolute;
+   			color: red;
+   			font-family: ft;
+   			margin-top: 280px;
+   			margin-left: 350px;
+   			display: none;
+   		}
+   		
+
+	</style>
+</head>
+<body style="background-image: url(bg.jpg); background-size: cover;">
+<img src="wm.png" style="position: absolute; margin-top: 10px; height: 100px; width: 100px">
+<h1 class="text-light" style="font-family: ft; position: absolute; margin-left: 100px; font-size: 100px;" class=""> <span class="score">0</span></h1>
+<p class="gameOver">game over</p>
+<div class="lose1">
+	<div class="lose2"></div>
+	<div class="lose2"></div>
+	<div class="lose2"></div>
+</div>
+	
+  <div class="wrapper">
+
+
+        <div class="ball"></div>
+
+<script type="text/javascript">
+	points = document.querySelector(".score")
+	let score = 0 
+	let lose2 = document.querySelectorAll(".lose2")
+	let lose = 0 
+	let l =1
+	let gameOver = document.querySelector(".gameOver")
+	let images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png", "10.png",];
+	
+
+	let randomizer = function(arg) {
+        let random = Math.random()*arg;
+        let round = Math.round(random);
+        return round
+    }
+
+	for (let i = 0; i<12; i =i+1){
+	let box = document.createElement("div");
+		document.body.appendChild(box);
+		box.classList.add("sphere");
+		box.style.left = randomizer(1900) +"px"
+		let num = randomizer(images.length-1)
+		box.style.backgroundImage = 'url(' + images[num] + ')'
+	}
+	let sphere = document.querySelectorAll(".sphere")
+	let topsph = -150
+	let test = document.getElementById("test");
+	let id = 0
+document.addEventListener('mouseover', event => {
+    if(event.target.classList.contains('sphere')) {
+     event.target.classList.add('sphere_active')
+     topsph = -150
+     id = id + 1
+     score = score + 1;
+     points.innerHTML = score
+
+}
+});
+
+
+	for (let i = 0; i<12; i =i+1){
+		sphere[i].onclick = function(){
+			sphere[i].style.display = "none"
+			id = id + 1
+			topsph = -150
+			score = score + 1;
+			points.innerHTML = score
+		}
+	}
+		let topup = function(){
+			topsph = topsph + 100
+			sphere[id].style.top = topsph + "px"
+			if(topsph == 1050){
+				sphere[id].style.display = "none"
+				lose = lose + 1
+				if(lose == l){
+					lose2[l-1].style.backgroundImage = "url(lose2.png)"
+					l=l+1
+					if(l == 4){
+						gameOver.style.display = "block"
+						gameStop()
+					}
+				}
+				topsph = -150
+				id = id + 1
+				if(id == 9){
+					gameStop()
+				}
+			}
+		}
+		
+		let gameStop = function(){
+        clearInterval(MyInt);
+    	}
+    	let MyInt = setInterval(topup,100)
+
+
+   
+ 
+</script>
+</body>
+</html>
