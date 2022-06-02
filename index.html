@@ -88,7 +88,7 @@
         return round
     }
 
-	for (let i = 0; i<100; i =i+1){
+	for (let i = 0; i<1000; i =i+1){
 	let box = document.createElement("div");
 		document.body.appendChild(box);
 		box.classList.add("sphere");
@@ -112,7 +112,7 @@ document.addEventListener('mouseover', event => {
 });
 
 
-	for (let i = 0; i<100; i =i+1){
+	for (let i = 0; i<1000; i =i+1){
 		sphere[i].onclick = function(){
 			sphere[i].style.display = "none"
 			id = id + 1
@@ -146,7 +146,7 @@ document.addEventListener('mouseover', event => {
 		let gameStop = function(){
         clearInterval(MyInt);
     	}
-    	let MyInt = setInterval(topup,100)
+    	let MyInt = setInterval(topup,75)
 
 
    
